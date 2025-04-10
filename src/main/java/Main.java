@@ -1,7 +1,7 @@
 import entity.Person;
 import service.PersonService;
-
 import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
@@ -14,5 +14,6 @@ public class Main {
         PersonService personService = new PersonService();
         personService.generateFakePersons();
         personService.getFilteredFakePersonsOnSalary(personService.generateFakePersons(), 1000000);
+        personService.recieveFakePersonsFromSite();
     }
 }
