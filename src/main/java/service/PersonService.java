@@ -3,8 +3,6 @@ import com.github.javafaker.Faker;
 import com.squareup.okhttp.*;
 import entity.Person;
 import lombok.SneakyThrows;
-
-import javax.imageio.IIOException;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -36,6 +34,7 @@ public class PersonService {
         }
         return filteredFakePersons;
     }
+
     @SneakyThrows
     public String recieveFakePersonsFromSite() {
         Request request = new Request.Builder()
