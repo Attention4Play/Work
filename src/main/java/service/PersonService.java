@@ -3,8 +3,6 @@ import com.github.javafaker.Faker;
 import com.squareup.okhttp.*;
 import entity.Person;
 import lombok.SneakyThrows;
-
-import javax.imageio.IIOException;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -43,7 +41,8 @@ public class PersonService {
                 .build();
         OkHttpClient client = new OkHttpClient();
         Response response = client.newCall(request).execute();
-        System.out.println(response);
-        return response.toString();
+        String responseBody = response.body().string();
+        System.out.println(responseBody);
+        return responseBody;
     }
 }
