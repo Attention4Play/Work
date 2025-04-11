@@ -49,18 +49,17 @@ public class PersonService {
 
         JSONObject jsonObject = new JSONObject(responseBody);
         Person person = new Person();
-        String name = jsonObject
+        String userName = jsonObject
                 .getJSONArray("results")
                 .getJSONObject(0)
                 .getJSONObject("name")
-                .getString("first");
-        String lastName = jsonObject
-                .getJSONArray("results")
+                .getString("first")
+                + " "
+                + jsonObject.getJSONArray("results")
                 .getJSONObject(0)
                 .getJSONObject("name")
                 .getString("last");
-        String userName = name + " " + lastName;
-        person.setUserName(userName);
+        person.setUserName(userName);     // но можно и в параметры сеттера всё прописать вместо userName
         String login = jsonObject
                 .getJSONArray("results")
                 .getJSONObject(0)
