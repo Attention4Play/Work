@@ -3,6 +3,8 @@ import com.github.javafaker.Faker;
 import com.squareup.okhttp.*;
 import entity.Person;
 import lombok.SneakyThrows;
+import org.json.JSONObject;
+import org.json.JSONArray;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -35,7 +37,7 @@ public class PersonService {
         return filteredFakePersons;
     }
     @SneakyThrows
-    public String recieveFakePersonsFromSite() {
+    public Person recieveFakePersonsFromSite() {
         Request request = new Request.Builder()
                 .url("https://randomuser.me/api/")
                 .build();
@@ -43,6 +45,45 @@ public class PersonService {
         Response response = client.newCall(request).execute();
         String responseBody = response.body().string();
         System.out.println(responseBody);
-        return responseBody;
+        response.toString();
+
+        JSONObject jsonObject = new JSONObject(responseBody);
+        Person person = new Person();
+        String name = jsonObject
+                .getJSONArray("results")
+                .getJSONObject(0)
+                .getJSONObject("name")
+                .getString("first");
+        String lastName = jsonObject
+                .getJSONArray("results")
+                .getJSONObject(0)
+                .getJSONObject("name")
+                .getString("last");
+        String userName = name + " " + lastName;
+        person.setUserName(userName);
+        String login = jsonObject
+                .getJSONArray("results")
+                .getJSONObject(0)
+                .getJSONObject("login")
+                .getString("username");
+        person.setLogin(login);
+        String phoneNumber = String.valueOf(jsonObject
+                .getJSONArray("results")
+                .getJSONObject(0)
+                .getString("phone"));
+        person.setPhoneNumber(phoneNumber);
+        String city = jsonObject
+                .getJSONArray("results")
+                .getJSONObject(0)
+                .getJSONObject("location")
+                .getString("city");
+        person.setCity(city);
+        String country = jsonObject
+                .getJSONArray("results")
+                .getJSONObject(0)
+                .getJSONObject("location")
+                .getString("country");
+        person.setCountry(country);
+        return person;
     }
 }
