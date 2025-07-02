@@ -12,6 +12,7 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <liquibase.version>4.28.0</liquibase.version>
     </properties>
 
     <dependencies>
@@ -36,6 +37,16 @@
             <artifactId>json</artifactId>
             <version>20190722</version>
         </dependency>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${liquibase.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.3</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -54,6 +65,17 @@
                             <version>1.18.30</version>
                         </path>
                     </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>${liquibase.version}</version>
+                <configuration>
+                    <changeLogFile>src/main/resources/db/changelog/db.changelog-master.yaml</changeLogFile>
+                    <url>jdbc:postgresql://localhost:5432/postgres</url>
+                    <username>postgres</username>
+                    <password>postgres</password>
                 </configuration>
             </plugin>
         </plugins>

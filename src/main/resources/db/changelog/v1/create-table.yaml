@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-person
+      author: Attention4Play
+      changes:
+        - createTable:
+            tableName: persons
+            columns:
+              - column:
+                  name: user_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: user_login
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: salary
+                  type: int
+                  constraints:
+                    nullable: false
